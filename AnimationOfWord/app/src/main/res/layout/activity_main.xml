@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="false"
+    android:orientation="vertical"
+    tools:context="com.example.admin.animationofword.MainActivity">
+
+    <RelativeLayout
+        android:id="@+id/parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clipChildren="false">
+
+        <RelativeLayout
+            android:id="@+id/place"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="50dp"
+            android:background="@color/colorPrimary"
+            android:clipChildren="false"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:orientation="horizontal">
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/place"
+            android:layout_marginTop="100dp"
+            android:background="@color/colorPrimary"
+            android:clipChildren="false"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:id="@+id/wrap1"
+                android:layout_margin="10dp">
+
+                <TextView
+                    android:id="@+id/text1"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:background="#ffffff"
+                    android:gravity="center"
+                    android:text="How"
+                    android:textSize="20dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:id="@+id/wrap2"
+                android:layout_margin="10dp"
+                android:layout_toEndOf="@id/wrap1">
+
+                <TextView
+                    android:id="@+id/text2"
+                    android:layout_width="60dp"
+                    android:layout_height="50dp"
+                    android:background="#ffffff"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="Are"
+                    android:textSize="20dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="70dp"
+                android:layout_height="50dp"
+                android:id="@+id/wrap3"
+                android:layout_margin="10dp"
+                android:layout_toEndOf="@id/wrap2">
+
+                <TextView
+                    android:id="@+id/text3"
+                    android:layout_width="70dp"
+                    android:layout_height="50dp"
+                    android:background="#ffffff"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="You"
+                    android:textSize="20dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:id="@+id/wrap4"
+                android:layout_margin="10dp"
+                android:layout_below="@id/wrap3"
+                android:layout_toEndOf="@id/wrap5">
+
+                <TextView
+                    android:id="@+id/text4"
+                    android:layout_width="60dp"
+                    android:layout_height="50dp"
+                    android:background="#ffffff"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="Day"
+                    android:textSize="20dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:layout_below="@id/wrap1"
+                android:layout_margin="10dp"
+                android:id="@+id/wrap5">
+
+                <TextView
+                    android:id="@+id/text5"
+                    android:layout_width="60dp"
+                    android:layout_height="50dp"
+                    android:background="#ffffff"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="To"
+                    android:textSize="20dp" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_below="@id/wrap3"
+                android:layout_toEndOf="@id/wrap4"
+                android:layout_margin="10dp"
+                android:id="@+id/wrap6">
+
+                <TextView
+                    android:id="@+id/text6"
+                    android:layout_width="200dp"
+                    android:layout_height="50dp"
+                    android:background="#ffffff"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="Bro?"
+                    android:textSize="20dp" />
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>
