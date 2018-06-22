@@ -52,58 +52,35 @@ public class MainActivity extends AppCompatActivity {
             place.setClipToOutline(false);
             v.setClipToOutline(false);
             final RelativeLayout viewGroup = (RelativeLayout) v.getParent().getParent();
+            //space khoang cach giua 2 view
             space = parent.getHeight() - place.getHeight() - container.getHeight();
             final RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) v.getLayoutParams();
             if (event.getAction() == MotionEvent.ACTION_UP) {
+                //xu ly su kien khi view nam o duoi chuyen len tren
                 if (viewGroup == container) {
+                    //neu chieu dai con cho chua cho view dang click thi set vao ben phai view truoc
                     if (place.getWidth() - view.getWidth() >= v.getWidth()) {
-                        v.clearAnimation();
-                        if (view.getChildCount() != 0) {
-                            layoutParams.addRule(RelativeLayout.RIGHT_OF, view.getChildAt(view.getChildCount() - 1).getId());
-                        }
-                        int[] location = new int[2];
-                        v.getLocationInWindow(location);
-                        int x = view.getWidth() - location[0];
-                        int y = -(location[1] - space);
-                        RelativeLayout relativeLayout = (RelativeLayout) v.getParent();
-                        v.setTag(relativeLayout.getId());
-                        addRules(view, v, layoutParams, 20, x, y);
+                        leftRelative(v, layoutParams);
                     } else {
-                        layoutParams.addRule(RelativeLayout.BELOW, view.getChildAt(0).getId());
-                        int[] location = new int[2];
-                        v.getLocationInWindow(location);
-                        int x = (int) view.getChildAt(0).getX() - location[0];
-                        int y = -(location[1] - space - view.getHeight());
-                        RelativeLayout relativeLayout = (RelativeLayout) v.getParent();
-                        v.setTag(relativeLayout.getId());
-                        addRules(view, v, layoutParams, 20, x, y);
+                        downLineRelative(v, layoutParams);
                     }
+                    //neu view xuong dong thi add vao ben phai view xuong dong va ben duoi view dong 1
                     if (view.getHeight() - 40 > v.getY() + v.getHeight()) {
-                        int[] location = new int[2];
-                        v.getLocationInWindow(location);
-                        layoutParams.addRule(RelativeLayout.BELOW, view.getChildAt(0).getId());
-                        layoutParams.addRule(RelativeLayout.RIGHT_OF, view.getChildAt(view.getChildCount() - 1).getId());
-                        int x = (int) view.getChildAt(view.getChildCount() - 1).getX()
-                                + view.getChildAt(view.getChildCount() - 1).getWidth() - location[0];
-                        int y = -(location[1] - space + -v.getHeight());
-                        RelativeLayout relativeLayout = (RelativeLayout) v.getParent();
-                        v.setTag(relativeLayout.getId());
-                        addRules(view, v, layoutParams, 20, x, y);
+                        downLineLeftRelative(v, layoutParams);
                     }
                 } else {
+                    //xu ly su kien khi view nam o tren chuyen xuong duoi
                     if (viewGroup == place) {
-                        v.clearAnimation();
-                         final RelativeLayout locationView = findViewById((int) v.getTag());
-                         final RelativeLayout parentView = (RelativeLayout) v.getParent();
+                        final RelativeLayout locationView = findViewById((int) v.getTag());
+                        final RelativeLayout parentView = (RelativeLayout) v.getParent();
 //                         parentView.removeView(v);
-//                        updateView(view);
+//                         updateView(view);
                         int[] location = new int[2];
                         locationView.getLocationInWindow(location);
 //                        layoutParams.removeRule(RelativeLayout.BELOW);
 //                        layoutParams.removeRule(RelativeLayout.RIGHT_OF);
 //                        layoutParams.removeRule(RelativeLayout.ALIGN_PARENT_LEFT);
 //                        locationView.addView(v, layoutParams);
-
 
 
                         TranslateAnimation animation = new TranslateAnimation(v.getX(), location[0], v.getY(),
@@ -120,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onAnimationEnd(Animation animation) {
                                 parentView.removeView(v);
-                                updateView(view);
+                                updateRelativeViewWhenRemove(view);
                                 layoutParams.removeRule(RelativeLayout.BELOW);
                                 layoutParams.removeRule(RelativeLayout.RIGHT_OF);
                                 layoutParams.removeRule(RelativeLayout.ALIGN_PARENT_LEFT);
@@ -142,8 +119,44 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    void addRules(final RelativeLayout parentView, final View v, final RelativeLayout.LayoutParams layoutParams, int margin, int toX, int toY) {
-        v.clearAnimation();
+    private void leftRelative(View v, RelativeLayout.LayoutParams layoutParams) {
+        if (view.getChildCount() != 0) {
+            layoutParams.addRule(RelativeLayout.RIGHT_OF, view.getChildAt(view.getChildCount() - 1).getId());
+        }
+        int[] location = new int[2];
+        v.getLocationInWindow(location);
+        int x = view.getWidth() - location[0];
+        int y = -(location[1] - space);
+        RelativeLayout relativeLayout = (RelativeLayout) v.getParent();
+        v.setTag(relativeLayout.getId());
+        translateUp(view, v, layoutParams, 20, x, y);
+    }
+
+    private void downLineRelative(View v, RelativeLayout.LayoutParams layoutParams) {
+        int[] location = new int[2];
+        v.getLocationInWindow(location);
+        int x = (int) view.getChildAt(0).getX() - location[0];
+        int y = -(location[1] - space - view.getHeight());
+        RelativeLayout relativeLayout = (RelativeLayout) v.getParent();
+        v.setTag(relativeLayout.getId());
+        layoutParams.addRule(RelativeLayout.BELOW, view.getChildAt(0).getId());
+        translateUp(view, v, layoutParams, 20, x, y);
+    }
+
+    private void downLineLeftRelative(View v, RelativeLayout.LayoutParams layoutParams) {
+        int[] location = new int[2];
+        v.getLocationInWindow(location);
+        layoutParams.addRule(RelativeLayout.BELOW, view.getChildAt(0).getId());
+        layoutParams.addRule(RelativeLayout.RIGHT_OF, view.getChildAt(view.getChildCount() - 1).getId());
+        int x = (int) view.getChildAt(view.getChildCount() - 1).getX()
+                + view.getChildAt(view.getChildCount() - 1).getWidth() - location[0];
+        int y = -(location[1] - space + -v.getHeight());
+        RelativeLayout relativeLayout = (RelativeLayout) v.getParent();
+        v.setTag(relativeLayout.getId());
+        translateUp(view, v, layoutParams, 20, x, y);
+    }
+
+    void translateUp(final RelativeLayout parentView, final View v, final RelativeLayout.LayoutParams layoutParams, int margin, int toX, int toY) {
         TranslateAnimation animation = new TranslateAnimation(0, (toX + margin), 0,
                 (toY + margin));
         animation.setRepeatMode(0);
@@ -176,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
         v.startAnimation(animation);
     }
 
-    private void updateView(RelativeLayout view) {
+    private void updateRelativeViewWhenRemove(RelativeLayout view) {
         check = false;
         int sum = 0;
         for (int i = 0; i < view.getChildCount(); i++) {
